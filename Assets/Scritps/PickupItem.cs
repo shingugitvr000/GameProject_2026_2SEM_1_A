@@ -21,8 +21,11 @@ public class PickupItem : MonoBehaviour
 
     private SimpleInventory inventory;
 
+    private AchievementManager achievementManager;
+
     public void Awake()
     {
+        achievementManager = FindFirstObjectByType<AchievementManager>();
         questManager = FindFirstObjectByType<QuestManager>();
         inventory = FindFirstObjectByType<SimpleInventory>();
     }
@@ -62,6 +65,11 @@ public class PickupItem : MonoBehaviour
         if (questManager != null)
         {
             questManager.AddQuestItem(itemName, amount);
+        }
+
+        if (achievementManager != null)
+        {
+            achievementManager.ItemCollected(amount);
         }
                     
         Destroy(gameObject);
